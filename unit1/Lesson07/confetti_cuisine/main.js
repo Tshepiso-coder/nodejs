@@ -5,6 +5,29 @@ const router = require("./router");
 const contentTypes = require("./contentTypes");
 const utils = require("./utils");
 
+//====================================
+//SUMMARY FROM Claud.ai
+
+// This is a simple Node.js HTTP server with custom routing. Here's what it does:
+// Structure:
+// Creates a server on port 3000
+// Uses a custom router to handle different routes
+// Serves HTML pages, images (PNG/JPG), CSS, and JavaScript files
+// Routes:
+// GET / → serves index.html
+// GET /courses.html → serves courses page
+// GET /contact.html → serves contact page
+// POST / → serves thanks.html (likely for form submissions)
+// GET /graph.png, /people.jpg, /product.jpg → serves images
+// GET /confetti_cuisine.css, /bootstrap.css → serves stylesheets
+// GET /confetti_cuisine.js → serves JavaScript
+// Key observations:
+// Repetitive code - Each route follows the same pattern. This could be refactored using middleware or a static file server.
+// Missing error handling - No 404 handler for unmatched routes or error handling for file reading.
+// Hard-coded file paths - Each file path is specified individually rather than using a general static file serving approach.
+// Dependencies - Relies on custom modules (router, contentTypes, utils) which aren't shown here.
+//====================================
+
 router.get("/", (req, res) => {
 res.writeHead(httpStatus.StatusCodes.OK, contentTypes.html);
   utils.getFile("views/index.html", res);
