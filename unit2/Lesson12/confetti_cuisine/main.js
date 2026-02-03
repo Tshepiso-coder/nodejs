@@ -22,11 +22,8 @@ app.use(express.static("public"));
 
 //Set the application up to listen on 3000
 app.get("/", (req, res) => {
-// res.send("Welcome to Confetti Cuisine!");
 res.render("index");
 });
-
-
 app.get("/courses", homeController.showCourses);
 app.get("/contact", homeController.showSignUp);
 app.post("/contact", homeController.postedSignUpForm);
