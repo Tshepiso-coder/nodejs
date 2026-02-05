@@ -4,10 +4,8 @@ const layouts = require("express-ejs-layouts");
 const methodOverride = require("method-override");
 const errorController = require("./controllers/errorController");
 const subscribersController = require("./controllers/subscribersController");
-const usersController = require("./controllers/usersController");
 const path = require("path");
 const homeController = require("./controllers/homeController");
-const coursesController = require("./controllers/coursesController");
 // const usersController = require("./controllers/subscribersController");
 
 mongoose.connect("mongodb://localhost:27017/confetti_cuisine", {
@@ -49,23 +47,6 @@ router.get("/subscribers/:id", subscribersController.show, subscribersController
 router.get("/subscribers/:id/edit", subscribersController.edit);
 router.put("/subscribers/:id/update", subscribersController.update, subscribersController.redirectView);
 router.delete("/subscribers/:id/delete",subscribersController.delete, subscribersController.redirectView);
-
-router.get("/users", usersController.index,usersController.indexView);
-router.get("/users/new", usersController.new);
-router.post("/users/create", usersController.create,usersController.redirectView);
-router.get("/users/:id/edit", usersController.edit);
-router.put("/users/:id/update", usersController.update, usersController.redirectView);
-router.get("/users/:id", usersController.show, usersController.showView);
-router.delete("/users/:id/delete", usersController.delete, usersController.redirectView);
-
-
-router.get("/courses", coursesController.index, coursesController.indexView);
-router.get("/courses/new", coursesController.new);
-router.post("/courses/create", coursesController.create, coursesController.redirectView);
-router.get("/courses/:id/edit", coursesController.edit);
-router.put("/courses/:id/update", coursesController.update, coursesController.redirectView);
-router.get("/courses/:id", coursesController.show, coursesController.showView);
-router.delete("/courses/:id/delete", coursesController.delete, coursesController.redirectView);
 
 //ERROR CONTROLLERS
 app.use(errorController.logErrors);

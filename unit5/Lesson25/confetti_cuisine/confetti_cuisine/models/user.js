@@ -46,41 +46,23 @@ const mongoose = require("mongoose"),
   userSchema.virtual("fullName").get(function () {
     return `${this.name.first} ${this.name.last}`;
   });
-
- userSchema.pre("save", async function () {
-  let user = this;
-
-  if (user.subscribedAccount === undefined) {
-    try {
-      const subscriber = await Subscriber.findOne({ email: user.email });
-      user.subscribedAccount = subscriber;
-      console.log('Presave hook ');
-    } catch (error) {
-      console.log(`Error in connecting subscriber: ${error.message}`);
-      next(error);
-    }
-  } else {
-    console.log('User linked to subscriber');
-  }
-});
-   
   
-  // userSchema.pre("save", function (next) {
-  //   let user = this;
-  //   if (user.subscribedAccount === undefined) {
-  //     Subscriber.findOne({
-  //       email: user.email,
-  //     })
-  //       .then((subscriber) => {
-  //         user.subscribedAccount = subscriber;
-  //         // next();
-  //       })
-  //       .catch((error) => {
-  //         console.log(`Error in connecting subscriber: ${error.message}`);
-  //         next(error);
-  //       });
-  //   } else {
-  //     next();
-  //   }
-  // });
+  userSchema.pre("save", function (next) {
+    let user = this;
+    if (user.subscribedAccount === undefined) {
+      Subscriber.findOne({
+        email: user.email,
+      })
+        .then((subscriber) => {
+          user.subscribedAccount = subscriber;
+          next();
+        })
+        .catch((error) => {
+          console.log(`Error in connecting subscriber: ${error.message}`);
+          next(error);
+        });
+    } else {
+      next();
+    }
+  });
 module.exports = mongoose.model("User", userSchema);

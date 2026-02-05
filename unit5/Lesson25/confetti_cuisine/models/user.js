@@ -1,6 +1,8 @@
-const mongoose = require("mongoose"),
-  { Schema } = require("mongoose"),
-  Subscriber = require("./subscriber"),
+const mongoose = require("mongoose");
+const passportLocalMongoose = require("passport-local-mongoose").default;
+const { Schema } = require("mongoose");
+
+const Subscriber = require("./subscriber");
   userSchema = new Schema(
     {
       name: {
@@ -23,10 +25,10 @@ const mongoose = require("mongoose"),
         min: [10000, "Zip code too short"],
         max: 99999,
       },
-      password: {
-        type: String,
-        required: true,
-      },
+      // password: {
+      //   type: String,
+      //   required: true,
+      // },
       courses: [
         {
           type: Schema.Types.ObjectId,
@@ -47,6 +49,10 @@ const mongoose = require("mongoose"),
     return `${this.name.first} ${this.name.last}`;
   });
 
+userSchema.plugin(passportLocalMongoose, {
+  usernameField: "email"
+});
+  
  userSchema.pre("save", async function () {
   let user = this;
 
