@@ -41,5 +41,15 @@ const db = mongoose.connection;
 db.once("open", () => {
     console.log("connection to db is successful")
 });
-
-BlogPost.findByIdAndDelete("6993967e9c58752151617b85");
+const test = async () =>  {
+const id = "6994dfd37f00039b755a7115";
+try {
+    await BlogPost.findByIdAndDelete(id, 
+        {title: "UPDATED FILED"}, 
+        {new:true});
+    console.log(myPost )
+} catch(error) {
+    console.log(error);    
+ }
+}
+test();
