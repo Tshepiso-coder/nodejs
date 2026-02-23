@@ -3,6 +3,7 @@ const fileUpload = require("express-fileupload");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const expressSession = require("express-session");
+const flash = require('connect-flash');
 const newPostController =require("./controllers/newPost");
 const homeController = require("./controllers/home");
 const getPostController = require("./controllers/getPost");
@@ -20,7 +21,7 @@ mongoose.connect("mongodb://localhost:27017/my_database");
 
 const port = 4000;
 const app = express();
-
+app.use(flash());
 app.use(
   expressSession({
     secret: "Glory be to God",

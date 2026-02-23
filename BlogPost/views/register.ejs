@@ -33,11 +33,19 @@
                                 <!-- To make this form functional, sign up at-->
                                 <!-- https://startbootstrap.com/solution/contact-forms-->
                                 <!-- to get an API token!-->
-
+                                    <% if(errors !=null && errors.length> 0){ %>
+                                    <ul class="list-group">
+                                    <% for (var i=0; i < errors.length; i++) { %>
+                                        <li class="list-group-item list-group-item-danger">
+                                            <%= errors[i] %>
+                                        </li>
+                                        <% } %>
+                                            </ul>
+                                            <% } %>
                                 <form action="/users/register" method="POST" enctype="multipart/form-data">
                                     <div class="form-floating">
                                         <input class="form-control" id="username" name="username" type="text"
-                                            placeholder="Username" data-sb-validations="required" required />
+                                            placeholder="Username" data-sb-validations="required" value = "<%= username %>" />
                                         <label for="username">Username</label>
                                         <div class="invalid-feedback" data-sb-feedback="name:required">A name is
                                             required.</div>
@@ -45,7 +53,7 @@
 
                                     <div class="form-floating">
                                         <input class="form-control" id="password" name="password" type="password" placeholder="Password"
-                                            data-sb-validations="required" required/>
+                                            data-sb-validations="required" value = "<%= password %>" />
                                         <label for="password">Password</label>
                                         <div class="invalid-feedback" data-sb-feedback="name:required">A name is
                                             required.</div>
